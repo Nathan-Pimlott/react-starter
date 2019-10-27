@@ -1,22 +1,28 @@
-import React from "react";
+import React, { 
+  useContext 
+} from "react";
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Switch,
   Route
 } from "react-router-dom";
+import {
+  observer 
+} from "mobx-react-lite";
 
 import Home from '../home/index';
 import Login from '../login/index';
+import AuthStore from '../../stores/auth'
 
 const Layout = () => {
+  const authStore = useContext(AuthStore)
 
-  // if (!userStore.user) {
-  if (true) {
+  if (!authStore.user.email) {
     return <Login />;
   }
 
   return (
-    <Router>
+    <BrowserRouter>
       <Switch>
 
         <Route 
@@ -27,8 +33,10 @@ const Layout = () => {
         </Route>
 
       </Switch>
-    </Router>
+    </BrowserRouter>
   );
 }
 
-export default Layout;
+export default observer(
+  Layout
+);
