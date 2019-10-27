@@ -41,7 +41,8 @@ const styles = () => ({
     zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
-    display: 'flex'
+    display: 'flex',
+    height: '-webkit-fill-available'
   }
 });
 
