@@ -1,12 +1,74 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import {
+  CssBaseline
+} from '@material-ui/core';
+import {
+  withStyles,
+  MuiThemeProvider,
+  createMuiTheme
+} from '@material-ui/core/styles';
+import {
+  blue,
+  blueGrey,
+  red
+} from '@material-ui/core/colors';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import Layout from './src/components/core/layout';
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: blue[500],
+      dark: blue[700],
+    },
+    secondary: {
+      main: blueGrey[800],
+    },
+    error: red,
+    contrastThreshold: 3,
+    tonalOffset: 0.2
+  },
+  typography: {
+    useNextVariants: true,
+    fontSize: 12,
+  },
+});
+
+const styles = () => ({
+  root: {
+    flexGrow: 1,
+    zIndex: 1,
+    overflow: 'hidden',
+    position: 'relative',
+    display: 'flex'
+  }
+});
+
+class App extends React.Component {
+  render() {
+    const { classes } = this.props;
+
+    return (
+      <React.Fragment>
+        <CssBaseline />
+        <MuiThemeProvider theme={theme}>
+          <div className={classes.root}>
+          
+            <Layout />
+
+          </div>
+        </MuiThemeProvider>
+      </React.Fragment>
+    );
+  }
+}
+
+const StyledApp = withStyles(
+  styles, 
+  { withTheme: true }
+)(
+  App
+);
+
+ReactDOM.render(<StyledApp />, document.getElementById('root'));
