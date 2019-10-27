@@ -6,12 +6,19 @@ import {
 } from "react-router-dom";
 
 import Home from '../home/index';
+import Login from '../login/index';
 
 const Layout = () => {
+
+  // if (!userStore.user) {
+  if (true) {
+    return <Login />;
+  }
+
   return (
     <Router>
       <Switch>
-        
+
         <Route 
           exact 
           path="/"
