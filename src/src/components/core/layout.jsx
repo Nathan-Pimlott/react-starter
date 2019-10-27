@@ -12,28 +12,48 @@ import {
 
 import Home from '../home/index';
 import Login from '../login/index';
-import AuthStore from '../../stores/auth'
+import Header from './header';
+import AuthStore from '../../stores/auth';
+import { makeStyles } from "@material-ui/core";
+
+const styles = makeStyles({
+  root: {
+    marginTop: 70,
+    width: '-webkit-fill-available'
+  }
+});
 
 const Layout = () => {
-  const authStore = useContext(AuthStore)
+  const classes = styles();
+
+  const authStore = useContext(AuthStore);
 
   if (!authStore.user.email) {
     return <Login />;
   }
 
   return (
-    <BrowserRouter>
-      <Switch>
+    <React.Fragment>
 
-        <Route 
-          exact 
-          path="/"
-        >
-          <Home />
-        </Route>
+      <Header />
 
-      </Switch>
-    </BrowserRouter>
+      <div 
+        className={classes.root}
+      >
+        <BrowserRouter>
+          <Switch>
+
+            <Route 
+              exact 
+              path="/"
+            >
+              <Home />
+            </Route>
+
+          </Switch>
+        </BrowserRouter>
+      </div>
+    </React.Fragment>
   );
 }
 

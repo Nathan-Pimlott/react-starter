@@ -9,7 +9,7 @@ import {
 export class Auth {
   loading = false;
   error = null;
-  user = {};
+  user = {email: 'test@email.com'};
 
   login = async (email, password) => {
     try {
