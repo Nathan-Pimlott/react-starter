@@ -8,11 +8,20 @@ import {
   Card,
   makeStyles,
   TextField,
-  Button
+  Button,
+  InputAdornment,
+  IconButton
 } from '@material-ui/core';
+import {
+  Visibility,
+  VisibilityOff
+} from '@material-ui/icons';
+import { 
+  observer 
+} from 'mobx-react-lite';
 
+import logo from '../../assets/images/logo.png';
 import AuthStore from '../../stores/auth';
-import { observer } from 'mobx-react-lite';
 
 const styles = makeStyles({
   padding: {
@@ -20,6 +29,9 @@ const styles = makeStyles({
   },
   marginTop: {
     marginTop: 20
+  },
+  largeMarginTop: {
+    marginTop: 40
   },
   loginButton: {
     textTransform: 'none'
@@ -36,6 +48,19 @@ const styles = makeStyles({
   loginCard: {
     margin: 'auto',
     height: 'max-content'
+  },
+  logo: {
+    width: 'auto',
+    height: 120,
+    margin: '0 auto'
+  },
+  titleContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    textAlign: 'center'
+  },
+  container: {
+    backgroundImage: 'radial-gradient(#18354e, #060d13)',
   }
 });
 
@@ -54,13 +79,16 @@ const Login = () => {
     setPassword
   ] = useState('');
 
-  console.log('Error: ', authStore.error && authStore.error.message);
-  
+  const [
+    showPassword,
+    setShowPassword
+  ] = useState(false);
 
   return (
     <Grid
       container
       justify='center'
+      className={classes.container}
     >
       <Grid 
         item 
@@ -82,11 +110,18 @@ const Login = () => {
             <Grid 
               item 
               xs={12}
+              className={classes.titleContainer}
             >
+
+              <img
+                src={logo}
+                alt='Logo'
+                className={classes.logo}
+              />
               
               <Typography
                 color='primary'
-                variant='h6'
+                variant='h5'
               >
                 React Starter Login
               </Typography>
@@ -95,7 +130,7 @@ const Login = () => {
             <Grid 
               item 
               xs={12}
-              className={classes.marginTop}
+              className={classes.largeMarginTop}
             >
 
               <TextField 
@@ -123,6 +158,32 @@ const Login = () => {
                 onChange={(e) => {
                   setPassword(e.target.value)
                 }}
+                type={
+                  showPassword ? 
+                  'text' : 
+                  'password'
+                }
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment 
+                      position='end'
+                    >
+                      <IconButton
+                        onClick={() => {
+                          setShowPassword(
+                            !showPassword
+                          );
+                        }}
+                      >
+                        {
+                          showPassword ? 
+                          <Visibility /> : 
+                          <VisibilityOff />
+                        }
+                      </IconButton>
+                    </InputAdornment>
+                  )
+                }}
               />
 
             </Grid>
@@ -135,6 +196,7 @@ const Login = () => {
               <Button 
                 variant='contained' 
                 color='secondary' 
+                fullWidth
                 onClick={() => {
                   authStore.login(
                     email, 
@@ -154,12 +216,14 @@ const Login = () => {
                 xs={12}
                 className={classes.marginTop}
               >
+
                 <Typography 
                   className={classes.errorText}
                   variant='body1'
                 >
                   {authStore.error.message}
                 </Typography>
+
               </Grid>
             }
           </Grid>
