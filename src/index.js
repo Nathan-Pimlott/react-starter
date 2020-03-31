@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {
+  BrowserRouter
+} from 'react-router-dom';
+import {
   CssBaseline
 } from '@material-ui/core';
 import {
@@ -12,7 +15,7 @@ import {
   red
 } from '@material-ui/core/colors';
 
-import Layout from './src/components/core/layout';
+import Layout from './components/core/layout';
 
 const theme = createMuiTheme({
   palette: {
@@ -52,9 +55,9 @@ class App extends React.Component {
         <CssBaseline />
         <MuiThemeProvider theme={theme}>
           <div className={classes.root}>
-          
-            <Layout />
-
+            <BrowserRouter>
+              <Layout />
+            </BrowserRouter>
           </div>
         </MuiThemeProvider>
       </React.Fragment>
@@ -69,4 +72,7 @@ const StyledApp = withStyles(
   App
 );
 
-ReactDOM.render(<StyledApp />, document.getElementById('root'));
+ReactDOM.render(
+  <StyledApp />, 
+  document.getElementById('root')
+);

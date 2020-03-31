@@ -1,4 +1,4 @@
-# React Stater Application
+# React Stater
 
 To run:
 
